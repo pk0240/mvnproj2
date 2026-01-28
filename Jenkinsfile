@@ -32,7 +32,7 @@ pipeline {
         stage(' Build the Docker Image') {
             steps {
                echo "Build the Docker Image for mvn project"
-               bat 'docker build -t mvnproj:1.0 .'
+               bat 'docker build -t mvnproj2:1.0 .'
             }
         }
          stage('Push Docker Image to DockerHub') {
@@ -41,7 +41,7 @@ pipeline {
                  withCredentials([string(credentialsId: 'priyanrk17', variable: 'DOCKER_PASS')]) {
                          bat '''
    	        echo %DOCKER_PASS% | docker login -u priyanrk17 --password-stdin
-                         docker tag mvnproj2 priyanrk17/mymvnproj2:latest
+                         docker tag mvnproj2:1.0 priyanrk17/mymvnproj2:latest
                          docker push priyanrk17/mymvnproj2:latest
                          '''
                   }
