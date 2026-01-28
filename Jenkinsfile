@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
      tools{
@@ -39,11 +38,11 @@ pipeline {
          stage('Push Docker Image to DockerHub') {
             steps {
                echo "Push Docker Image to DockerHub for mvn project"
-                 withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'DOCKER_PASS')]) {
+                 withCredentials([string(credentialsId: 'priyanrk17', variable: 'DOCKER_PASS')]) {
                          bat '''
-   	        echo %DOCKER_PASS% | docker login -u deepikkaa20 --password-stdin
-                         docker tag mvnproj:1.0 deepikkaa20/mymvnproj:latest
-                         docker push deepikkaa20/mymvnproj:latest
+   	        echo %DOCKER_PASS% | docker login -u priyanrk17 --password-stdin
+                         docker tag mvnproj2 priyanrk17/mymvnproj2:latest
+                         docker push priyanrk17/mymvnproj2:latest
                          '''
                   }
             }
@@ -52,6 +51,10 @@ pipeline {
         stage('Deploy the project using Container') {
             steps {
                 echo "Running Java Application"
+                bat '''
+	docker rm -f myjavaappcont || exit 0
+	docker run --name myjavaappcont priyanrk17/mymvnproj2:latest
+	'''
             }
         }
     }
