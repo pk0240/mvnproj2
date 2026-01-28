@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                echo "Pulling from GITHUB repository"
-               git branch: 'main', credentialsId: 'priyanrk17', url: 'https://github.com/pk0240/mvnproj2.git'
+               git branch: 'main', credentialsId: 'mygithubcred', url: 'https://github.com/pk0240/mvnproj2.git'
             }
         }
          stage('Test the Project') {
@@ -38,11 +38,11 @@ pipeline {
          stage('Push Docker Image to DockerHub') {
             steps {
                echo "Push Docker Image to DockerHub for mvn project"
-                 withCredentials([string(credentialsId: 'priyanrk17', variable: 'DOCKER_PASS')]) {
+                 withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'DOCKER_PASS')]) {
                          bat '''
    	        echo %DOCKER_PASS% | docker login -u priyanrk17 --password-stdin
-                         docker tag mvnproj2:1.0 priyanrk17/mymvnproj2:1.0:latest
-                         docker push priyanrk17/mymvnproj2:1.0:latest
+                         docker tag mvnproj2:1.0 priyanrk17/mymvnproj2:latest
+                         docker push priyanrk17/mymvnproj2:latest
                          '''
                   }
             }
