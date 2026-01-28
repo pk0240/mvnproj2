@@ -41,8 +41,8 @@ pipeline {
                  withCredentials([string(credentialsId: 'priyanrk17', variable: 'DOCKER_PASS')]) {
                          bat '''
    	        echo %DOCKER_PASS% | docker login -u priyanrk17 --password-stdin
-                         docker tag mvnproj2:1.0 priyanrk17/mymvnproj2:latest
-                         docker push priyanrk17/mymvnproj2:latest
+                         docker tag mvnproj2:1.0 priyanrk17/mymvnproj2:1.0:latest
+                         docker push priyanrk17/mymvnproj2:1.0:latest
                          '''
                   }
             }
