@@ -68,7 +68,7 @@ pipeline {
                 echo "Running Docker container"
                 bat '''
                 docker rm -f myjavaapp || exit 0
-                docker run -d --name myjavaapp -p 8080:8080 priyanrk17/myapp:latest
+                docker run -d --name myjavaapp -p 8081:8080 priyanrk17/myapp:latest
                 '''
             }
         }
