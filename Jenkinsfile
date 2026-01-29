@@ -44,26 +44,35 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image to DockerHub') {
+         stage('Push Docker Image to DockerHub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhubpwd', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhubpwd',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )
+                ]) {
                     bat '''
                     docker logout
                     echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
-                    docker tag mvnproj:1.0 %DOCKER_USER%/myapp:latest
                     docker push %DOCKER_USER%/myapp:latest
                     '''
                 }
             }
         }
 
-        stage('Deploy the project using Container') {
+        stage('Deploy Container') {
             steps {
-                echo "Running Java Application"
-                
+                echo "Running Docker container"
+                bat '''
+                docker rm -f myjavaapp || exit 0
+                docker run -d --name myjavaapp -p 8080:8080 %DOCKER_USER%/myapp:latest
+                '''
             }
         }
     }
+
 
     post {
         success {
