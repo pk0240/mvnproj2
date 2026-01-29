@@ -55,7 +55,7 @@ pipeline {
                 ]) {
                     bat '''
                     docker logout
-                    echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                    echo %DOCKER_PASS%| docker login -u %DOCKER_USER% --password-stdin
                     docker push %DOCKER_USER%/myapp:latest
                     '''
                 }
