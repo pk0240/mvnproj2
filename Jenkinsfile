@@ -46,7 +46,6 @@ pipeline {
 
         stage('Push Docker Image to DockerHub') {
             steps {
-                echo "Push Docker Image to DockerHub for mvn project"
                 withCredentials([usernamePassword(credentialsId: 'dockerhubpwd', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     bat '''
                     docker logout
