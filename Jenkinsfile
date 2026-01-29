@@ -40,7 +40,7 @@ pipeline {
         stage('Build the Docker Image') {
             steps {
                 echo "Build the Docker Image for mvn project"
-                bat 'docker build -t mvnproj2:1.0 .'
+                bat 'docker build -t mvnproj:1.0 .'
             }
         }
 
@@ -51,7 +51,7 @@ pipeline {
                     bat '''
                     docker logout
                     echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
-                    docker tag mvnproj2:1.0 %DOCKER_USER%/myapp:latest
+                    docker tag mvnproj:1.0 %DOCKER_USER%/myapp:latest
                     docker push %DOCKER_USER%/myapp:latest
                     '''
                 }
