@@ -58,7 +58,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 bat '''
-                "C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" start
+                "C:\Minikube" start
                 kubectl apply -f deployment.yaml
                 timeout /t 20
                 kubectl get pods
@@ -73,7 +73,7 @@ pipeline {
 
                 stage('Enable Metrics') {
                     steps {
-                        bat '"C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe" addons enable metrics-server'
+                        bat '"C:\Minikube" addons enable metrics-server'
                     }
                 }
 
