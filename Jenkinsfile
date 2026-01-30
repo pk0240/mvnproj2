@@ -63,6 +63,7 @@ pipeline {
             }
         }
 
+<<<<<<< HEAD
         stage('Deploy the project using k8s') {
             steps {
                 echo "Running java application in k8s"
@@ -79,6 +80,14 @@ pipeline {
 	               sleep 10
 	               kubectl get services
 	               minikube image ls  
+=======
+        stage('Deploy Container') {
+            steps {
+                echo "Running Docker container"
+                bat '''
+                docker rm -f myjavaapp || exit 0
+                docker run --name myjavaapp priyanrk17/myapp:latest
+>>>>>>> a7f0d9c3087f9208802cc8fc462ee50344e60654
                 '''
             }
         }
@@ -109,6 +118,7 @@ pipeline {
     }
         
     }
+
 
 
     post {
