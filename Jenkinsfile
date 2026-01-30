@@ -47,7 +47,7 @@ pipeline {
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
                     bat '''
-                    echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                    echo %DOCKER_PASS%| docker login -u %DOCKER_USER% --password-stdin
                     docker tag mymvnproj:latest %DOCKER_USER%/mymvnproj:latest
                     docker push %DOCKER_USER%/mymvnproj:latest
                     '''
